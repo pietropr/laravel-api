@@ -71,3 +71,4 @@ class CompaniesController extends Controller
         $companie->delete();
     }
 }
+                                                                          //
