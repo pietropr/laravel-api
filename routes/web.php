@@ -8,6 +8,14 @@ Route::group(array('prefix' => 'api', 'middleware' => 'cors'), function () {
     Route::resource('companies', 'CompaniesController');
     Route::resource('jobs', 'JobsController');
 
+
+
+    Route::post('login', 'UserController@login');
+    Route::post('register', 'UserController@register');
+    Route::group(['middleware' => 'auth:api'], function(){
+        Route::post('details', 'UserController@details');
+    });
+
 });
 
 Route::middleware('cors', function () {
