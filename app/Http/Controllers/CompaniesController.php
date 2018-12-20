@@ -57,6 +57,7 @@ class CompaniesController extends Controller
         }
     }
 
+    //
     public function destroy($id)
     {
         $companie = Company::find($id);
