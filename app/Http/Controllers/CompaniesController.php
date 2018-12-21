@@ -68,7 +68,9 @@ class CompaniesController extends Controller
             ], 404);
         }
 
-        $companie->delete();
+        if($companie->delete()) {
+            return response()->json(['succeso' => 200]);
+        }
     }
 }
                                                                           //

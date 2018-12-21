@@ -16,7 +16,20 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login(){
+    public function login(Request $request){
+
+        $data = $request->all();
+
+        $validacao = Validator::make($data, [
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:2',
+            'c_password' => 'required|same:password'
+        ]);
+
+        if($validacao->fails()) {
+            return response()->json($validacao->errors());
+        }
+
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
@@ -57,6 +70,6 @@ class UserController extends Controller
     public function details()
     {
         $user = Auth::user();
-        return response()->json(['success' => $user], $this-> successStatus);
+        return response()->json($user);
     }
 }
